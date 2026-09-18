@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hostel Attendance Report Builder · Eastern Oak College of Nursing Sciences</title>
+<meta name="description" content="Upload the hostel gate log, set a date range and rate, and get a ready-to-use boarding fee absence report — no spreadsheet skills needed." />
+<link rel="icon" href="https://www.easternoak.org/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap site-head__row">
+    <a class="brand" href="https://www.easternoak.org/" target="_blank" rel="noopener">
+      <img class="brand__crest" src="https://www.easternoak.org/images/Eastern-OAK-logo-201.png" alt="Eastern Oak College of Nursing Sciences crest" />
+      <span class="brand__text">
+        <span class="brand__name">Eastern&nbsp;Oak College of Nursing Sciences</span>
+        <span class="brand__motto">Knowledge · Integrity · Compassion</span>
+      </span>
+    </a>
+    <a class="site-head__back" href="https://www.easternoak.org/" target="_blank" rel="noopener">easternoak.org ↗</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__row">
+    <p class="hero__eyebrow">Hostel &amp; Bursary Tool</p>
+    <h1 class="hero__title">Turn the gate log into a boarding fee report — no stress.</h1>
+    <p class="hero__lead">
+      Upload the attendance file from the gate, tell us the dates and the rate,
+      and this page builds a clean, ready-to-print Excel report — the kind you can
+      hand straight to the bursar. Nothing leaves your computer; everything happens
+      right here in your browser.
+    </p>
+  </div>
+</section>
+
+<main class="wrap main">
+
+  <ol class="steps">
+
+    <li class="step" id="step-upload">
+      <div class="step__num">1</div>
+      <div class="step__body">
+        <h2 class="step__title">Upload the attendance file</h2>
+        <p class="step__hint">This is the <code>.xls</code> or <code>.xlsx</code> file exported from the gate / biometric machine.</p>
+
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <input type="file" id="fileInput" accept=".xls,.xlsx" hidden />
+          <span class="dropzone__icon" aria-hidden="true">📄</span>
+          <span class="dropzone__text">
+            <strong>Tap to choose a file</strong>
+            <span>or drag it in here</span>
+          </span>
+        </label>
+
+        <div class="filecheck" id="filecheck" hidden></div>
+      </div>
+    </li>
+
+    <li class="step" id="step-details">
+      <div class="step__num">2</div>
+      <div class="step__body">
+        <h2 class="step__title">Tell us the details</h2>
+        <p class="step__hint">These settings decide which dates are covered and how the boarding fee is worked out.</p>
+
+        <div class="field-grid">
+          <label class="field">
+            <span class="field__label">Start date</span>
+            <input type="date" id="startDate" />
+          </label>
+          <label class="field">
+            <span class="field__label">End date</span>
+            <input type="date" id="endDate" />
+          </label>
+          <label class="field">
+            <span class="field__label">Rate per absent day</span>
+            <span class="field__money">
+              <span class="field__prefix">₦</span>
+              <input type="number" id="ratePerDay" value="15000" min="0" step="100" />
+            </span>
+          </label>
+          <label class="field">
+            <span class="field__label">Hostel 1 name</span>
+            <input type="text" id="hostel1Name" value="Hostel 1" maxlength="40" />
+          </label>
+          <label class="field">
+            <span class="field__label">Hostel 2 name</span>
+            <input type="text" id="hostel2Name" value="Hostel 2" maxlength="40" />
+          </label>
+        </div>
+        <p class="field-note">
+          The file's <strong>Location ID</strong> column tells us which hostel a student belongs to —
+          <code>1</code> is matched to "Hostel 1 name" above, <code>2</code> to "Hostel 2 name". Any other
+          value is labelled "Unknown".
+        </p>
+      </div>
+    </li>
+
+    <li class="step" id="step-generate">
+      <div class="step__num">3</div>
+      <div class="step__body">
+        <h2 class="step__title">Generate the report</h2>
+        <p class="step__hint">This builds the standard Hostel Absentees report — an Excel file and a PDF — and downloads both straight to your device.</p>
+        <button class="btn btn--primary" id="generateBtn" type="button">Generate &amp; download report</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+    </li>
+
+  </ol>
+
+  <section class="results" id="results" hidden>
+    <h2 class="results__title">Report summary</h2>
+    <dl class="summary" id="summary"></dl>
+    <div class="table-scroll">
+      <table class="preview" id="previewTable"></table>
+    </div>
+    <p class="results__note">Showing every student. Scroll sideways to see all the dates.</p>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap site-foot__row">
+    <div>
+      <strong>Eastern Oak College of Nursing Sciences</strong><br />
+      Icha Ituma Memorial Centre, 12 Udensi Ugorji Street, Aguogboriga, Abakaliki, Ebonyi State
+    </div>
+    <div>
+      Toll-free 0810 082 8004 · <a href="https://www.easternoak.org/">easternoak.org</a>
+    </div>
+  </div>
+  <p class="site-foot__credit">Hostel attendance report builder — runs entirely in your browser, nothing is uploaded anywhere.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+/* ==========================================================
+   Eastern Oak College of Nursing Sciences
+   Hostel Attendance Report Builder
+   ========================================================== */
+
+:root {
+  --maroon-900: #4C0C1A;
+  --maroon-700: #6F1728;
+  --maroon-600: #862036;
+  --gold-500: #BE8A2E;
+  --gold-300: #E4C87E;
+  --gold-100: #F6ECD3;
+  --navy-800: #142A3D;
+  --paper: #FAF7F1;
+  --paper-dim: #F1EAdd;
+  --card: #FFFFFF;
+  --ink-900: #251A14;
+  --ink-600: #5B4B40;
+  --line: #E5D9C4;
+  --good: #2E6B4E;
+  --bad: #A32E2E;
+  --radius: 14px;
+  --shadow: 0 10px 30px -18px rgba(76, 12, 26, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-900);
+  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--maroon-900);
+  margin: 0;
+}
+
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  background: var(--paper-dim);
+  padding: 0.1em 0.4em;
+  border-radius: 5px;
+  font-size: 0.92em;
+}
+
+a { color: var(--maroon-700); }
+
+/* ---------- Header ---------- */
+
+.site-head {
+  background: linear-gradient(180deg, var(--maroon-900), var(--maroon-700));
+  border-bottom: 3px solid var(--gold-500);
+}
+
+.site-head__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+  min-width: 0;
+}
+
+.brand__crest {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.brand__name {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: #fff;
+}
+
+.brand__motto {
+  font-size: 0.76rem;
+  color: var(--gold-300);
+  letter-spacing: 0.02em;
+}
+
+.site-head__back {
+  color: var(--gold-300);
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-head__back:hover { text-decoration: underline; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background: var(--maroon-900);
+  background-image: radial-gradient(circle at 85% -10%, rgba(228,200,126,0.18), transparent 55%);
+  color: #fff;
+  padding: 44px 0 56px;
+}
+
+.hero__eyebrow {
+  color: var(--gold-300);
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+}
+
+.hero__title {
+  color: #fff;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-weight: 600;
+  max-width: 16ch;
+}
+
+.hero__lead {
+  margin: 16px 0 0;
+  max-width: 56ch;
+  color: #EFE3D2;
+  font-size: 1rem;
+}
+
+/* ---------- Steps ---------- */
+
+.main { padding: 40px 0 60px; }
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.step {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 24px 26px;
+  display: flex;
+  gap: 18px;
+}
+
+.step__num {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--maroon-900);
+  color: var(--gold-300);
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+.step__body { flex: 1; min-width: 0; }
+
+.step__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.step__hint {
+  color: var(--ink-600);
+  font-size: 0.92rem;
+  margin: 4px 0 18px;
+}
+
+/* ---------- Dropzone ---------- */
+
+.dropzone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 2px dashed var(--gold-500);
+  background: var(--gold-100);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.dropzone:hover,
+.dropzone.is-dragover {
+  background: var(--gold-300);
+  border-color: var(--maroon-700);
+}
+
+.dropzone__icon { font-size: 1.8rem; }
+
+.dropzone__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dropzone__text strong { color: var(--maroon-900); }
+.dropzone__text span:last-child { color: var(--ink-600); font-size: 0.88rem; }
+
+.filecheck {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.filecheck.ok { background: #E9F3EC; color: var(--good); border: 1px solid #BFDFC9; }
+.filecheck.err { background: #FBEAEA; color: var(--bad); border: 1px solid #F0C6C6; }
+
+/* ---------- Fields ---------- */
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.field__label {
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+input[type="date"],
+input[type="text"],
+input[type="number"] {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 11px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--ink-900);
+  width: 100%;
+}
+input:focus-visible {
+  outline: 2px solid var(--maroon-700);
+  outline-offset: 1px;
+}
+
+.field__money {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--paper);
+}
+.field__prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background: var(--paper-dim);
+  color: var(--maroon-700);
+  font-weight: 600;
+  border-right: 1.5px solid var(--line);
+}
+.field__money input {
+  border: none;
+  border-radius: 0;
+}
+.field__money input:focus-visible { outline-offset: -2px; }
+
+.field-note {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-600);
+}
+
+/* ---------- Button ---------- */
+
+.btn {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  padding: 15px 22px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn--primary {
+  background: var(--maroon-900);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(76,12,26,0.55);
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+.btn--primary:hover { background: var(--maroon-700); }
+.btn--primary:active { transform: translateY(1px); }
+.btn--primary:disabled {
+  background: #C9BEB3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.status {
+  margin-top: 14px;
+  font-size: 0.92rem;
+  min-height: 1.2em;
+}
+.status.is-error { color: var(--bad); }
+.status.is-ok { color: var(--good); }
+
+/* ---------- Results ---------- */
+
+.results {
+  margin-top: 30px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.results__title { font-size: 1.15rem; margin-bottom: 14px; }
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 0 0 20px;
+}
+.summary div {
+  background: var(--paper-dim);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.summary dt {
+  font-size: 0.76rem;
+  text-transform: none;
+  color: var(--ink-600);
+  margin-bottom: 2px;
+}
+.summary dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--maroon-900);
+  font-family: "Fraunces", serif;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+table.preview {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.86rem;
+  min-width: 640px;
+}
+table.preview th,
+table.preview td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  white-space: nowrap;
+}
+table.preview thead th {
+  background: var(--maroon-900);
+  color: #fff;
+  position: sticky;
+  top: 0;
+}
+table.preview td:first-child,
+table.preview th:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--paper);
+}
+table.preview thead th:first-child { background: var(--maroon-900); }
+table.preview tbody tr:nth-child(even) td { background: var(--paper-dim); }
+table.preview tbody tr:nth-child(even) td:first-child { background: var(--paper-dim); }
+
+table.preview td.absent { color: var(--bad); font-weight: 600; }
+table.preview td.total { font-weight: 700; color: var(--maroon-900); background: var(--gold-100) !important; }
+
+.results__note {
+  margin: 12px 0 0;
+  font-size: 0.82rem;
+  color: var(--ink-600);
+}
+
+/* ---------- Footer ---------- */
+
+.site-foot {
+  background: var(--navy-800);
+  color: #D8E0E6;
+  padding: 28px 0;
+  font-size: 0.88rem;
+}
+.site-foot__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+.site-foot a { color: var(--gold-300); }
+.site-foot__credit {
+  max-width: 780px;
+  margin: 18px auto 0;
+  padding: 0 20px;
+  color: #93A4B1;
+  font-size: 0.78rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 620px) {
+  .field-grid { grid-template-columns: 1fr; }
+  .step { padding: 18px 16px 20px; gap: 12px; }
+  .brand__motto { display: none; }
+}
